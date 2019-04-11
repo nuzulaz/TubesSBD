@@ -1,0 +1,3 @@
+Customer:No_identitas;Username;Nama;No_hp;E-Mail#;;;;;;
+Flight:Kode_Pesawat;Nama_Maskapai;Jenis_Pesawat;Bagasi;Makanan#;;;;;;
+Booking:Kode_Booking;Jadwal_Keberangkatan;Jam_Berangkat;Jam_Sampai;Tanggal_Berangkat;Tanggal_Sampai;Harga;Nama_Penumpang;Kode_Pesawat;No_identitas;Jumlah_Penumpang#

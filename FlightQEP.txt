@@ -1,0 +1,4 @@
+P 4; B 8192#
+Customer;No_identitas,Username,Nama,No_hp,E-Mail; R 128; n 100000; V 12#
+Flight;Kode_Pesawat,Nama_Maskapai,Jenis_Pesawat,Bagasi,Makanan; R 10; n 150; V 6#
+Booking;Kode_Booking,Jadwal_Keberangkatan,Jadwal_Sampai,Tanggal_Berangkat,Tanggal_Sampai,Harga,Nama_Penumpang,Jumlah_Penumpang,Kode_Pesawat,No_identitas; R 20; n 1000; V 12#
