@@ -5,52 +5,36 @@
  */
 package tubessbd;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
  *
  * @author nuzul
  */
-public class TubesSBD {
+public class Menu4 {
+    private String query;
 
-    /**
-     * @param args the command line arguments
-     */
+    public Menu4(String x){
+        this.query = x;
+    }
     
-    public static void main(String[] args) {
-        // TODO code application logic here
-        String csvFile = "FlightQEP.txt"; //sesuai sama path filenya dimana
-        BufferedReader br = null;
-        
-        try {     
-                br = new BufferedReader(new FileReader(csvFile));
-                br.readLine();
-                String Customer = br.readLine();
-                String Flight = br.readLine();
-                String Booking = br.readLine();
-                System.out.println(Customer);
-                System.out.println(Flight);
-                System.out.println(Booking);
-                Scanner sql = new Scanner(System.in);// Persiapan Inpu Data
-
-                CSv tab1 = new CSv(Customer); //Ambil data CSV
-                CSv tab2 = new CSv(Flight); //Ambil data CSV
-                CSv tab3 = new CSv(Booking); //Ambil data CSV
+    public void display(){
+                Dictionary csv = new Dictionary();
+                CSv tab1 = new CSv(csv.getCustomerData());
+                CSv tab2 = new CSv(csv.getBookingData());
+                CSv tab3 = new CSv(csv.getFlightData());
                 CSv anonymus = new CSv();
+                Scanner sql = new Scanner(System.in);
+                System.out.println(csv.getCustomerData());
+                System.out.println(csv.getBookingData());
+                System.out.println(csv.getFlightData());
                 
-//                System.out.println("");
-                
-                String x = sql.nextLine(); // Input Data
-                String[] select = x.split(" ");//Split berdasarkan Split
+                String[] select = this.query.split(" ");//Split berdasarkan Split
                 
                 if(select[0].equals("Select") && select[2].equals("From")){
                             String[] colName = select[1].split(",");
                             //ngecek array dalam 1 tabel, ex : select id,nama from sekolah
-                            System.out.println(select.length);
+//                            System.out.println(select.length);
                             if(select.length <= 4){
                                 
                                 boolean cek = anonymus.getComma(select[3]);
@@ -69,7 +53,6 @@ public class TubesSBD {
                             }else if(select.length >=7){
                                 if(select[4].equals("Join") && select[6].equals("Using")){
                                     String keys = anonymus.getKeys(select[7]);
-//                                    System.out.println(keys);
                                     boolean cek = anonymus.getComma(select[7]);   
                                             if(cek){
                                                 String joinName = "";
@@ -78,7 +61,6 @@ public class TubesSBD {
                                                 String namaTmp = "";
                                                 String tableName = select[5];
                                                 
-                                                //ngecek data nya ada di tabel di csv atau engga
                                                 if(tableName.equals(tab1.getNamaTabel())){
                                                     joinName = tab1.getNamaTabel();
                                                     tabJoin = tab1.getTab();
@@ -124,20 +106,5 @@ public class TubesSBD {
                 }else{  
                     System.out.println("Missing Statement");
                 }
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        
     }
-    
 }

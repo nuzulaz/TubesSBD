@@ -183,7 +183,6 @@ public class CSv {
                                    System.out.print(input[i]+",");
                                 }
                             }
-                            
                         }
                     }else{
                         System.out.println("SQL ERROR");

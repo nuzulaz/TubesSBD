@@ -69,7 +69,11 @@ public class MainClass {
                 }
                 break;
             case "4" :
-                System.out.println("Belum");
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Input Query :");
+                String query = scanner.nextLine();
+                Menu4 coba = new Menu4(query);
+                coba.display();
                 break;
             case "5" :
                 System.out.println("Belum");
