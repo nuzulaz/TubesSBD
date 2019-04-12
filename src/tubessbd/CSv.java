@@ -148,7 +148,7 @@ public class CSv {
                 boolean cek=searchColumn(input,csv);               
                 if(cek){
                     if(input[0].equals("*")){
-                        System.out.println("Tabel : "+this.namaTabel[0]);
+                        System.out.println(">> Tabel : "+this.namaTabel[0]);
                         System.out.print("List Kolom  :");    
                         for (int j = 0; j < csv.length; j++) {
                                 System.out.print(csv[j]+",");
@@ -170,12 +170,26 @@ public class CSv {
                 }
     }
     
+    public void tampilQepBasic(String[] kolom, String kondisi, String[] input){
+        boolean cek=searchColumn(input,kolom);
+        if(cek){
+            System.out.println("PROJECTION ");
+            for (int i = 0; i < input.length; i++){
+                System.out.print(input[i]+",");
+            }
+            System.out.println("-- on the fly");
+            System.out.println("SELECTION " + kondisi +" --");
+            System.out.println(this.namaTabel[0]);
+        }
+        
+    }
+    
     //kalo udah ketemu joinnya trus sesuai sama dengan data yang ada di csv dan input
     public void tampilJoin(String[] input, String[] csv,String[] tabJoin,String namaTabel){
                 boolean cek = searchColumnJoin(input,csv,tabJoin);
                 if(cek){
                     if(input.length <= csv.length){
-                        System.out.println("Tabel : "+namaTabel);
+                        System.out.println(">> Tabel : "+namaTabel);
                         System.out.print("List Kolom  :");
                         for (int i = 0; i < input.length; i++) {
                             for (int j = 0; j < csv.length; j++) {

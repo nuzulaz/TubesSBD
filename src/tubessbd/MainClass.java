@@ -13,7 +13,6 @@ import java.util.Scanner;
  * @author nuzul
  */
 public class MainClass {
-    
     public static void main(String[] args) {
         System.out.println(">> Menu Utama :");
         System.out.println("1. Tampilkan BFR dan Fanaout Ratio Setiap Tabel");
@@ -71,8 +70,8 @@ public class MainClass {
             case "4" :
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Input Query :");
-                String query = scanner.nextLine();
-                Menu4 coba = new Menu4(query);
+//                String query = scanner.nextLine();
+                Menu4 coba = new Menu4("Select Nama From Customer Where Nama=Azmi");
                 coba.display();
                 break;
             case "5" :
