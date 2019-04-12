@@ -50,12 +50,22 @@ public class CSv {
     
     //ilangin tanda kurung (id)
     public String getKeys(String input){
-    
+   
         String[] tmp = input.split("\\(");
         String[] sameKey = tmp[1].split("\\)");   
         return sameKey[0];
     }
     
+    public boolean isKeys(String input,String keys){
+        String[] tmp = input.split("=");
+        String cekKeys = tmp[0];
+        System.out.println(cekKeys+"----"+keys);
+        if(cekKeys.equals(keys)){
+            return true;
+        }else{
+            return false;
+        }
+    }
     //
     public boolean searchColumnJoin(String[] input, String[] csv1, String[] csv2){
         boolean cek = true;
@@ -169,8 +179,33 @@ public class CSv {
                     System.out.println("Column Not Found !");
                 }
     }
+    public void tampilData(String[] input, String[] csv, String namaTabel){
+                boolean cek=searchColumn(input,csv);               
+                if(cek){
+                    if(input[0].equals("*")){
+                        System.out.println(">> Tabel : "+namaTabel);
+                        System.out.print("List Kolom  :");    
+                        for (int j = 0; j < csv.length; j++) {
+                                System.out.print(csv[j]+",");
+                            }
+                    }else{
+                        System.out.println("Tabel : "+namaTabel);
+                        System.out.print("List Kolom  :");
+                        for (int i = 0; i < input.length; i++) {
+                            for (int j = 0; j < csv.length; j++) {
+                                if(input[i].equals(csv[j])){
+                                    System.out.print(input[i]+",");
+                                }
+                            }
+                        }
+                    }
+                        
+                }else{
+                    System.out.println("Column Not Found !");
+                }
+    }
     
-    public void tampilQepBasic(String[] kolom, String kondisi, String[] input){
+    public void tampilQepBasic(String[] kolom, String kondisi, String[] input, String namaTabel){
         boolean cek=searchColumn(input,kolom);
         if(cek){
             System.out.println("PROJECTION ");
@@ -179,7 +214,7 @@ public class CSv {
             }
             System.out.println("-- on the fly");
             System.out.println("SELECTION " + kondisi +" --");
-            System.out.println(this.namaTabel[0]);
+            System.out.println(namaTabel);
         }
         
     }

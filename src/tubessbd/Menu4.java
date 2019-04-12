@@ -81,15 +81,29 @@ public class Menu4 {
                                 }
                             }else if(select.length == 6){
                                 if(select[4].equals("Where")){
+                                        Cost cost  = new Cost();
+//                                        System.out.println(select[5]);
                                         String[] tableName = select[3].split(";");
+                                        String[] tab = null;
                                         if(tableName[0].equals(tab1.getNamaTabel())){
-                                            tab1.tampilData(colName, tab1.getTab());
-                                            tab1.tampilQepBasic(tab1.getTab(), select[5], colName);
+//                                            System.out.println(tab1.isKeys(select[5], "No_identitas"));
+                                              if(anonymus.isKeys(select[5], "No_identitas")){
+                                                  int n = tab1.getN();
+                                                  cost.rumusA1keys(n);
+                                              } 
+                                              tab = tab1.getTab();
+//                                            tab1.tampilData(colName, tab1.getTab());
+//                                            tab1.tampilQepBasic(tab1.getTab(), select[5], colName);
                                         }else if(tableName[0].equals(tab2.getNamaTabel())){
-                                            tab2.tampilData(colName, tab2.getTab());
+                                            tab = tab2.getTab();
+//                                            tab2.tampilData(colName, tab2.getTab());
                                         }else if(tableName[0].equals(tab3.getNamaTabel())){
-                                            tab3.tampilData(colName, tab3.getTab());
+                                            tab = tab3.getTab();
+//                                            tab3.tampilData(colName, tab3.getTab());
                                         }
+                                        //Aksi
+                                        anonymus.tampilData(colName, tab, tableName[0]);
+                                        anonymus.tampilQepBasic(tab, select[5], colName, tableName[0]);
                                 }
                             }else if(select.length >=7){
                                 if(select[4].equals("Join") && select[6].equals("Using")){
