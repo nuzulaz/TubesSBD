@@ -75,7 +75,8 @@ public class MainClass {
                 coba.display();
                 break;
             case "5" :
-                System.out.println("Belum");
+//                CSv x = new CSv();
+//                System.out.println(Math.ceil(x.logOfBase(10, 1000)));
                 break;
         }
         

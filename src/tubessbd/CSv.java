@@ -66,6 +66,8 @@ public class CSv {
             return false;
         }
     }
+    
+    
     //
     public boolean searchColumnJoin(String[] input, String[] csv1, String[] csv2){
         boolean cek = true;
