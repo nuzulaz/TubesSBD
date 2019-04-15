@@ -86,25 +86,57 @@ public class Menu4 {
 //                                        System.out.println(select[5]);
                                         String[] tableName = select[3].split(";");
                                         String[] tab = null;
+                                        double biaya1 = 0;
+                                        double biaya2 = 0;
+                                        double total = 0;
+                                        String algo = null;
                                         if(tableName[0].equals(tab1.getNamaTabel())){
 //                                            System.out.println(tab1.isKeys(select[5], "No_identitas"));
                                               if(anonymus.isKeys(select[5], "No_identitas")){
-                                                  int n = tab1.getN();
-                                                  cost.rumusA1keys(n);
+                                                  Menu1 Customer = new Menu1(csv.getBlockSize(),tab1.getR(),csv.getPointer(),tab1.getV());
+                                                  biaya1 = cost.costA1keys(tab1.getN());
+                                                  biaya2 = cost.costA2(Math.round(Customer.getVanaoutRatio()), tab1.getN());
+                                                  if(biaya1 > biaya2){
+                                                      algo = "A2";
+                                                      total = biaya2;
+                                                  }else{
+                                                      algo = "A1";
+                                                      total = biaya1;
+                                                  }
                                               } 
                                               tab = tab1.getTab();
-//                                            tab1.tampilData(colName, tab1.getTab());
-//                                            tab1.tampilQepBasic(tab1.getTab(), select[5], colName);
                                         }else if(tableName[0].equals(tab2.getNamaTabel())){
+                                            if(anonymus.isKeys(select[5], "Kode_Booking")){
+                                                    Menu1 Booking = new Menu1(csv.getBlockSize(),tab2.getR(),csv.getPointer(),tab2.getV());
+                                                    biaya1 = cost.costA1keys(tab2.getN());
+                                                    biaya2 = cost.costA2(Math.round(Booking.getVanaoutRatio()), tab2.getN());
+                                                    if(biaya1 > biaya2){
+                                                        algo = "A2";
+                                                        total = biaya2;
+                                                    }else{
+                                                        algo = "A1";
+                                                        total = biaya1;
+                                                    }
+                                                } 
                                             tab = tab2.getTab();
-//                                            tab2.tampilData(colName, tab2.getTab());
                                         }else if(tableName[0].equals(tab3.getNamaTabel())){
+                                            if(anonymus.isKeys(select[5], "Kode_Flight")){
+                                                    Menu1 Booking = new Menu1(csv.getBlockSize(),tab3.getR(),csv.getPointer(),tab3.getV());
+                                                    biaya1 = cost.costA1keys(tab3.getN());
+                                                    biaya2 = cost.costA2(Math.round(Booking.getVanaoutRatio()), tab3.getN());
+                                                    if(biaya1 > biaya2){
+                                                        algo = "A2";
+                                                        total = biaya2;
+                                                    }else{
+                                                        algo = "A1";
+                                                        total = biaya1;
+                                                    }
+                                                } 
                                             tab = tab3.getTab();
-//                                            tab3.tampilData(colName, tab3.getTab());
                                         }
                                         //Aksi
                                         anonymus.tampilData(colName, tab, tableName[0]);
-                                        anonymus.tampilQepBasic(tab, select[5], colName, tableName[0]);
+                                        anonymus.tampilQepBasic(tab, select[5], colName, tableName[0], algo, total);
                                 }
                             }else if(select.length >=7){
                                 if(select[4].equals("Join") && select[6].equals("Using")){

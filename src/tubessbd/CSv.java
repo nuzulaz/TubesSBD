@@ -207,7 +207,7 @@ public class CSv {
                 }
     }
     
-    public void tampilQepBasic(String[] kolom, String kondisi, String[] input, String namaTabel){
+    public void tampilQepBasic(String[] kolom, String kondisi, String[] input, String namaTabel, String algo, double cost){
         boolean cek=searchColumn(input,kolom);
         if(cek){
             System.out.println("PROJECTION ");
@@ -215,8 +215,9 @@ public class CSv {
                 System.out.print(input[i]+",");
             }
             System.out.println("-- on the fly");
-            System.out.println("SELECTION " + kondisi +" --");
+            System.out.println("SELECTION " + kondisi +" -- "+algo);
             System.out.println(namaTabel);
+            System.out.println(">> Cost : "+cost);
         }
         
     }

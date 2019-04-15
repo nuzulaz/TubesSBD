@@ -14,7 +14,6 @@ public class Cost {
     private String A1non;
     private String A2;
     private String A3;
-    private int cost;
 
     public Cost() {
     }
@@ -32,13 +31,12 @@ public class Cost {
         int tr = b;
         System.out.println("A1 non= ts + "+tr+" tr");
         System.out.println("Cost = "+tr+" blok");
-        
-        
     }
     public void rumusA2(int y, int n){
         
         double h = Math.ceil(this.logOfBase(y,n));
         double tmp = h+1;
+
         System.out.println("A2 Keys ="+tmp+"tr + "+tmp+"ts");
         System.out.println("Cost = "+tmp+" blok");
     }
@@ -50,5 +48,26 @@ public class Cost {
        System.out.println("A3 ="+tr+"tr + "+ts+"ts");
        System.out.println("Cost = "+tr+" blok");
        
+    }
+    
+    public int costA1keys(int b){
+        return b/2;
+    }
+    
+    public int costA1non(int b){
+        return b;
+    }
+    
+    public double costA2(int y, int n){
+        double h = Math.ceil(this.logOfBase(y,n));
+        double tmp = h+1;
+        return tmp;
+    }
+    
+    public double costA3(int y, int n){
+       double h = Math.ceil(this.logOfBase(y,n));
+       double ts = h+1;
+       double tr = ts + n;
+       return tr;
     }
 }
