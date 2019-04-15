@@ -10,10 +10,9 @@ package tubessbd;
  * @author nuzul
  */
 public class Cost {
-    private String A1key;
-    private String A1non;
-    private String A2;
-    private String A3;
+
+    private int cost;
+    private String algo;
 
     public Cost() {
     }
@@ -36,7 +35,7 @@ public class Cost {
         
         double h = Math.ceil(this.logOfBase(y,n));
         double tmp = h+1;
-
+        
         System.out.println("A2 Keys ="+tmp+"tr + "+tmp+"ts");
         System.out.println("Cost = "+tmp+" blok");
     }
@@ -49,6 +48,11 @@ public class Cost {
        System.out.println("Cost = "+tr+" blok");
        
     }
+
+    public int getCost() {
+        return this.cost;
+    }
+    
     
     public int costA1keys(int b){
         return b/2;
@@ -68,6 +72,40 @@ public class Cost {
        double h = Math.ceil(this.logOfBase(y,n));
        double ts = h+1;
        double tr = ts + n;
+        System.out.println(tr);
        return tr;
     }
+
+    public String getAlgo() {
+        return algo;
+    }
+    
+    
+    public double compareKeys(double costA1keys, double costA2){
+        double tmp = 0;
+        
+        if(costA1keys > costA2){
+            tmp = costA2;
+            this.algo = "A2";
+        }else{
+            tmp = costA1keys;
+            this.algo = "A1";
+        }
+        return tmp;
+    }
+    
+    public double compareNonKeys(double costA1non, double costA3){
+        double tmp = 0;
+        
+        if(costA1non > costA3){
+            tmp = costA3;
+            this.algo = "A3";
+        }else{
+            tmp = costA1non;
+            this.algo = "A1";
+        }
+        return tmp;
+    }
+    
+    
 }

@@ -83,7 +83,6 @@ public class Menu4 {
                             }else if(select.length == 6){
                                 if(select[4].equals("Where")){
                                         Cost cost  = new Cost();
-//                                        System.out.println(select[5]);
                                         String[] tableName = select[3].split(";");
                                         String[] tab = null;
                                         double biaya1 = 0;
@@ -91,47 +90,43 @@ public class Menu4 {
                                         double total = 0;
                                         String algo = null;
                                         if(tableName[0].equals(tab1.getNamaTabel())){
-//                                            System.out.println(tab1.isKeys(select[5], "No_identitas"));
-                                              if(anonymus.isKeys(select[5], "No_identitas")){
-                                                  Menu1 Customer = new Menu1(csv.getBlockSize(),tab1.getR(),csv.getPointer(),tab1.getV());
+                                                Menu1 Customer = new Menu1(csv.getBlockSize(),tab1.getR(),csv.getPointer(),tab1.getV());  
+                                                if(anonymus.isKeys(select[5], "No_identitas")){
                                                   biaya1 = cost.costA1keys(tab1.getN());
                                                   biaya2 = cost.costA2(Math.round(Customer.getVanaoutRatio()), tab1.getN());
-                                                  if(biaya1 > biaya2){
-                                                      algo = "A2";
-                                                      total = biaya2;
-                                                  }else{
-                                                      algo = "A1";
-                                                      total = biaya1;
-                                                  }
-                                              } 
+                                                  total = cost.compareKeys(biaya1, biaya2);
+                                                }else{
+                                                  biaya1 = cost.costA1non(tab1.getN());
+                                                  biaya2 = cost.costA3(Math.round(Customer.getVanaoutRatio()), tab1.getN());
+                                                  total = cost.compareNonKeys(biaya1, biaya2);
+                                                }
+                                              algo = cost.getAlgo();
                                               tab = tab1.getTab();
                                         }else if(tableName[0].equals(tab2.getNamaTabel())){
+                                            Menu1 Booking = new Menu1(csv.getBlockSize(),tab2.getR(),csv.getPointer(),tab2.getV());
                                             if(anonymus.isKeys(select[5], "Kode_Booking")){
-                                                    Menu1 Booking = new Menu1(csv.getBlockSize(),tab2.getR(),csv.getPointer(),tab2.getV());
                                                     biaya1 = cost.costA1keys(tab2.getN());
                                                     biaya2 = cost.costA2(Math.round(Booking.getVanaoutRatio()), tab2.getN());
-                                                    if(biaya1 > biaya2){
-                                                        algo = "A2";
-                                                        total = biaya2;
-                                                    }else{
-                                                        algo = "A1";
-                                                        total = biaya1;
-                                                    }
-                                                } 
+                                                    total = cost.compareKeys(biaya1, biaya2);
+                                            }else{
+                                                    biaya1 = cost.costA1non(tab2.getN());
+                                                    biaya2 = cost.costA3(Math.round(Booking.getVanaoutRatio()), tab2.getN());
+                                                    total = cost.compareNonKeys(biaya1, biaya2);
+                                            } 
+                                            algo = cost.getAlgo();
                                             tab = tab2.getTab();
                                         }else if(tableName[0].equals(tab3.getNamaTabel())){
+                                            Menu1 Booking = new Menu1(csv.getBlockSize(),tab3.getR(),csv.getPointer(),tab3.getV());
                                             if(anonymus.isKeys(select[5], "Kode_Flight")){
-                                                    Menu1 Booking = new Menu1(csv.getBlockSize(),tab3.getR(),csv.getPointer(),tab3.getV());
                                                     biaya1 = cost.costA1keys(tab3.getN());
                                                     biaya2 = cost.costA2(Math.round(Booking.getVanaoutRatio()), tab3.getN());
-                                                    if(biaya1 > biaya2){
-                                                        algo = "A2";
-                                                        total = biaya2;
-                                                    }else{
-                                                        algo = "A1";
-                                                        total = biaya1;
-                                                    }
-                                                } 
+                                                    total = cost.compareKeys(biaya1, biaya2);
+                                            }else{
+                                                    biaya1 = cost.costA1non(tab3.getN());
+                                                    biaya2 = cost.costA3(Math.round(Booking.getVanaoutRatio()), tab3.getN());
+                                                    total = cost.compareNonKeys(biaya1, biaya2);
+                                            }
+                                            algo = cost.getAlgo();
                                             tab = tab3.getTab();
                                         }
                                         //Aksi
