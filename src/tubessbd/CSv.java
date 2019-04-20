@@ -76,7 +76,7 @@ public class CSv {
         
         int countTrue=0;
         if(input.length <= csv1.length){
-            System.out.println("cek");
+//            System.out.println("cek");
                 for (int i = 0; i < input.length; i++) {
                     for (int j = 0; j < csv1.length; j++){
                         if(input[i].equals(csv1[j])){
@@ -217,6 +217,22 @@ public class CSv {
             System.out.println("-- on the fly");
             System.out.println("SELECTION " + kondisi +" -- "+algo);
             System.out.println(namaTabel);
+            System.out.println(">> Cost : "+cost);
+        }
+        
+    }
+    
+    public void tampilQepJoin(String[] input, String[] kolom1,String[] kolom2, String namaTabel1, String namaTabel2, double cost, String keys){
+        boolean cek=searchColumn(kolom1,input);
+        if(cek){
+            System.out.println("PROJECTION ");
+            boolean col = searchColumnJoin(input,kolom1,kolom2);
+            for (int i = 0; i < input.length; i++){
+                System.out.print(input[i]+",");
+            }
+            System.out.println("-- on the fly");
+            System.out.println("Join "+ namaTabel1+"."+keys+" = "+ namaTabel2 +"."+ keys + "-- BNLJ");
+            System.out.println(namaTabel1+"         "+namaTabel2);
             System.out.println(">> Cost : "+cost);
         }
         

@@ -48,6 +48,23 @@ public class Cost {
        System.out.println("Cost = "+tr+" blok");
        
     }
+    
+    public long BLNJblok(int br, int bs){
+        long worst = br * bs + bs;
+        return worst;
+    }
+    
+    public int BLNJseek(int br){
+        return 2 * br;
+    }
+    
+    public int compareBLNJ(int x, int y){
+        if(x>=y){
+            return y;
+        }else{
+            return x;
+        }
+    }
 
     public int getCost() {
         return this.cost;
@@ -81,6 +98,7 @@ public class Cost {
     }
     
     
+    
     public double compareKeys(double costA1keys, double costA2){
         double tmp = 0;
         
@@ -106,6 +124,8 @@ public class Cost {
         }
         return tmp;
     }
+    
+    
     
     
 }

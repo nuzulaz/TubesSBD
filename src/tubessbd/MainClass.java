@@ -71,7 +71,7 @@ public class MainClass {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Input Query :");
 //                String query = scanner.nextLine();
-                Menu4 coba = new Menu4("Select No_identitas From Customer Where Nama=Azmi");
+                Menu4 coba = new Menu4("Select No_identitas From Customer Join Booking Using (No_identitas);");
                 coba.display();
                 break;
             case "5" :
