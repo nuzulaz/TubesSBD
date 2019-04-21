@@ -5,6 +5,7 @@
  */
 package tubessbd;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -49,7 +50,7 @@ public class Menu4 {
     }
     
     
-    public void display(){
+    public void display() throws IOException{
                 Dictionary csv = new Dictionary();
                 CSv tab1 = new CSv(csv.getCustomerData());
                 CSv tab2 = new CSv(csv.getBookingData());
@@ -58,7 +59,7 @@ public class Menu4 {
                 Menu1 Customer = new Menu1(csv.getBlockSize(),tab1.getR(),csv.getPointer(),tab1.getV());  
                 Menu1 Flight = new Menu1(csv.getBlockSize(),tab2.getR(),csv.getPointer(),tab2.getV());
                 Menu1 Booking = new Menu1(csv.getBlockSize(),tab3.getR(),csv.getPointer(),tab3.getV());
-                                          
+                DataSharedPool sp = new DataSharedPool();             
 //                System.out.println(csv.getCustomerData());
 //                System.out.println(csv.getBookingData());
 //                System.out.println(csv.getFlightData());
@@ -86,55 +87,55 @@ public class Menu4 {
                                 }
                             }else if(select.length == 6){
                                 if(select[4].equals("Where")){
+                                    System.out.println("cek");
                                         Cost cost  = new Cost();
                                         String[] tableName = select[3].split(";");
-                                        String[] tab = null;
                                         double biaya1 = 0;
                                         double biaya2 = 0;
-                                        double total = 0;
-                                        String algo = null;
-                                        if(tableName[0].equals(tab1.getNamaTabel())){
+                                        if(tableName[0].equals(tab1.getNamaTabel())){ 
+                                                anonymus.tampilData(colName, tab1.getTab(), tableName[0]);
                                                 if(anonymus.isKeys(select[5], "No_identitas")){
                                                   biaya1 = cost.costA1keys(tab1.getN());
                                                   biaya2 = cost.costA2(Math.round(Customer.getVanaoutRatio()), tab1.getN());
-                                                  total = cost.compareKeys(biaya1, biaya2);
+                                                  anonymus.tampilQepNew(select[5], colName, tableName[0], cost.getAlgoA1(), cost.getAlgoA2(), biaya1, biaya2);
+                                                  String qep = anonymus.getQEP();
+                                                  String qepBanding = anonymus.qepBanding(qep);
+//                                                    System.out.println(qepBanding);
+                                                    if(!sp.isDuplicate(qepBanding)){
+                                                      sp.saveToSharedPool(this.query, qep);
+                                                    }else{
+                                                        System.out.println("Duplicate");
+                                                    }
+//                                                    sp.ReadSharedPool();
+                                                
                                                 }else{
                                                   biaya1 = cost.costA1non(tab1.getN());
                                                   biaya2 = cost.costA3(Math.round(Customer.getVanaoutRatio()), tab1.getN());
-                                                  total = cost.compareNonKeys(biaya1, biaya2);
+                                                  anonymus.tampilQepNew(select[5], colName, tableName[0], cost.getAlgoA1(), cost.getAlgoA3(), biaya1, biaya2);
                                                 }
-                                              algo = cost.getAlgo();
-                                              tab = tab1.getTab();
                                         }else if(tableName[0].equals(tab2.getNamaTabel())){
+                                            anonymus.tampilData(colName, tab2.getTab(), tableName[0]);
                                             if(anonymus.isKeys(select[5], "Kode_Booking")){
                                                     biaya1 = cost.costA1keys(tab2.getN());
                                                     biaya2 = cost.costA2(Math.round(Flight.getVanaoutRatio()), tab2.getN());
-                                                    total = cost.compareKeys(biaya1, biaya2);
+                                                    anonymus.tampilQepNew(select[5], colName, tableName[0], cost.getAlgoA1(), cost.getAlgoA2(), biaya1, biaya2);
                                             }else{
                                                     biaya1 = cost.costA1non(tab2.getN());
                                                     biaya2 = cost.costA3(Math.round(Flight.getVanaoutRatio()), tab2.getN());
-                                                    total = cost.compareNonKeys(biaya1, biaya2);
-                                            } 
-                                            algo = cost.getAlgo();
-                                            tab = tab2.getTab();
+                                                    anonymus.tampilQepNew(select[5], colName, tableName[0], cost.getAlgoA1(), cost.getAlgoA3(), biaya1, biaya2);
+                                            }
                                         }else if(tableName[0].equals(tab3.getNamaTabel())){
+                                            anonymus.tampilData(colName, tab3.getTab(), tableName[0]);
                                             if(anonymus.isKeys(select[5], "Kode_Flight")){
                                                     biaya1 = cost.costA1keys(tab3.getN());
                                                     biaya2 = cost.costA2(Math.round(Booking.getVanaoutRatio()), tab3.getN());
-                                                    total = cost.compareKeys(biaya1, biaya2);
+                                                    anonymus.tampilQepNew(select[5], colName, tableName[0], cost.getAlgoA1(), cost.getAlgoA2(), biaya1, biaya2);
                                             }else{
                                                     biaya1 = cost.costA1non(tab3.getN());
                                                     biaya2 = cost.costA3(Math.round(Booking.getVanaoutRatio()), tab3.getN());
-                                                    total = cost.compareNonKeys(biaya1, biaya2);
+                                                    anonymus.tampilQepNew(select[5], colName, tableName[0], cost.getAlgoA1(), cost.getAlgoA2(), biaya1, biaya2);
                                             }
-                                            algo = cost.getAlgo();
-                                            tab = tab3.getTab();
                                         }
-                                        //Aksi
-                                        anonymus.tampilData(colName, tab, tableName[0]);
-                                        anonymus.tampilQepBasic(tab, select[5], colName, tableName[0], algo, biaya1);
-                                        anonymus.tampilQepBasic(tab, select[5], colName, tableName[0], algo, biaya2);
-                                        System.out.println("QEP optimal : "+ algo);
                                 }
                             }else if(select.length >=7){
                                 if(select[4].equals("Join") && select[6].equals("Using")){

@@ -1,0 +1,24 @@
+Select Nama,No_identitas From Customer Where No_identitas=azmi
+Nama,No_identitas, -- on the fly
+SELECTION No_identitas=azmi --A2
+Customer
+>>Cost :4.0
+
+Select Nama,No_identitas From Customer Where No_identitas=azmi
+Nama,No_identitas, -- on the fly
+SELECTION No_identitas=azmi --A2
+Customer
+>>Cost :2.0
+
+Select Nama,No_identitas From Customer Where No_identitas=azmi
+Nama,No_identitas, -- on the fly
+SELECTION No_identitas=azmi --A2
+Customer
+>>Cost :7.0
+
+Select Nama,Username From Customer Where No_identitas=azmi
+Nama,Username, -- on the fly
+SELECTION No_identitas=azmi --A2
+Customer
+>>Cost :2.0
+

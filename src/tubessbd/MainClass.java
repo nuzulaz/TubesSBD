@@ -6,6 +6,7 @@
 package tubessbd;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Scanner;
  * @author nuzul
  */
 public class MainClass {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println(">> Menu Utama :");
         System.out.println("1. Tampilkan BFR dan Fanaout Ratio Setiap Tabel");
         System.out.println("2. Tampilkan Blok Data + Blok Index Setiap Tabel");
@@ -71,10 +72,12 @@ public class MainClass {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Input Query :");
 //                String query = scanner.nextLine();
-                Menu4 coba = new Menu4("Select No_identitas From Customer Join Booking Using (No_identitas);");
+                Menu4 coba = new Menu4("Select Nama,Username From Customer Where No_identitas=azmi");
                 coba.display();
                 break;
             case "5" :
+                DataSharedPool sp = new DataSharedPool();
+                sp.ReadSharedPool();
 //                CSv x = new CSv();
 //                System.out.println(Math.ceil(x.logOfBase(10, 1000)));
                 break;

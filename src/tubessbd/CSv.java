@@ -13,6 +13,7 @@ public class CSv {
 
     private String[] tab;
     private String[] namaTabel= new String[1];
+    private String QEP;
     private int R;
     private int n;
     private int V;
@@ -206,6 +207,53 @@ public class CSv {
                     System.out.println("Column Not Found !");
                 }
     }
+    
+    public void tampilQepNew(String kondisi, String[] input, String namaTabel, String algo1, String algo2, double biaya1, double biaya2){
+            String kolom= "";
+            System.out.println("PROJECTION ");
+            for (int i = 0; i < input.length; i++){
+                System.out.print(input[i]+",");
+                kolom += input[i]+",";
+            }
+            System.out.println("-- on the fly");
+            System.out.println("SELECTION " + kondisi +" -- "+algo1);
+            System.out.println(namaTabel);
+            System.out.println(">> Cost : "+biaya1);
+            
+            
+            System.out.println("PROJECTION ");
+            for (int i = 0; i < input.length; i++){
+                System.out.print(input[i]+",");
+            }
+            System.out.println("-- on the fly");
+            System.out.println("SELECTION " + kondisi +" -- "+algo2);
+            System.out.println(namaTabel);
+            System.out.println(">> Cost : "+biaya2);
+   
+            if(biaya1 <= biaya2){
+                System.out.println("QEP Optimal = "+algo1);
+                this.QEP = kolom+" -- on the fly%"+"SELECTION "+kondisi+" --"+algo1+"%"+namaTabel+"%>>Cost :"+biaya1;
+            }else{
+                System.out.println("QEP Optimal = "+algo2);
+                this.QEP = kolom+" -- on the fly%"+"SELECTION "+kondisi+" --"+algo2+"%"+namaTabel+"%>>Cost :"+biaya2;
+            }
+            
+//            System.out.println(this.QEP);
+    }
+    
+    public String qepBanding(String qep){
+        String[] data = qep.split("%");
+        String isi = data[0]+data[1]+data[2]+data[3];
+        return isi;
+    
+    }
+
+    public String getQEP() {
+        return QEP;
+    }
+    
+    
+    
     
     public void tampilQepBasic(String[] kolom, String kondisi, String[] input, String namaTabel, String algo, double cost){
         boolean cek=searchColumn(input,kolom);

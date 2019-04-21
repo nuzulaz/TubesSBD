@@ -12,7 +12,9 @@ package tubessbd;
 public class Cost {
 
     private int cost;
-    private String algo;
+    private String algoA1="A1";
+    private String algoA2="A2";
+    private String algoA3="A3";
 
     public Cost() {
     }
@@ -66,6 +68,7 @@ public class Cost {
         }
     }
 
+
     public int getCost() {
         return this.cost;
     }
@@ -93,10 +96,6 @@ public class Cost {
        return tr;
     }
 
-    public String getAlgo() {
-        return algo;
-    }
-    
     
     
     public double compareKeys(double costA1keys, double costA2){
@@ -104,10 +103,8 @@ public class Cost {
         
         if(costA1keys > costA2){
             tmp = costA2;
-            this.algo = "A2";
         }else{
             tmp = costA1keys;
-            this.algo = "A1";
         }
         return tmp;
     }
@@ -117,12 +114,22 @@ public class Cost {
         
         if(costA1non > costA3){
             tmp = costA3;
-            this.algo = "A3";
         }else{
             tmp = costA1non;
-            this.algo = "A1";
         }
         return tmp;
+    }
+
+    public String getAlgoA1() {
+        return algoA1;
+    }
+
+    public String getAlgoA2() {
+        return algoA2;
+    }
+
+    public String getAlgoA3() {
+        return algoA3;
     }
     
     
