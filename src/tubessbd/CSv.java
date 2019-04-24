@@ -14,6 +14,7 @@ public class CSv {
     private String[] tab;
     private String[] namaTabel= new String[1];
     private String QEP;
+    private String QEPjoin;
     private int R;
     private int n;
     private int V;
@@ -74,7 +75,6 @@ public class CSv {
         boolean cek = true;
         boolean tmp1 = true;
         boolean tmp2 = true;
-        
         int countTrue=0;
         if(input.length <= csv1.length){
 //            System.out.println("cek");
@@ -208,6 +208,63 @@ public class CSv {
                 }
     }
     
+        public void tampilQepJoin(String[] input, String[] kolom1,String[] kolom2, String namaTabel1, String namaTabel2, double cost, String keys){
+        boolean cek=searchColumn(kolom1,input);
+        boolean col = searchColumnJoin(input,kolom1,kolom2);
+            if(col){
+                System.out.print("PROJECTION ");
+                for (int i = 0; i < input.length; i++){
+                    System.out.print(input[i]+",");
+                }
+                System.out.println("-- on the fly");
+                System.out.println("Join "+ namaTabel1+"."+keys+" = "+ namaTabel2 +"."+ keys + "-- BNLJ");
+                System.out.println(namaTabel1+"         "+namaTabel2);
+                System.out.println(">> Cost : "+cost);
+
+            }
+        }
+        
+        public void tampilQepJoinNew(String[] input, String[] kolom1,String[] kolom2, String namaTabel1, String namaTabel2, int br, int bs, String keys){
+//      boolean cek=searchColumn(kolom1,input);
+        String kolom ="";
+        boolean col = searchColumnJoin(input,kolom1,kolom2);
+        Cost cost = new Cost();
+        if(col){
+            long qep1 = cost.BLNJblok(br, bs);// Nama Tabel From dulu baru join
+            long qep2 = cost.BLNJblok(bs, br);// Nama Tabel Join dulu baru From 
+            
+            System.out.print("PROJECTION ");
+            for (int i = 0; i < input.length; i++){
+                System.out.print(input[i]+",");
+                kolom += input[i]+",";
+            }
+            System.out.println("-- on the fly");
+            System.out.println("Join "+ namaTabel1+"."+keys+" = "+ namaTabel2 +"."+ keys + "-- BNLJ");
+            System.out.println(namaTabel1+"         "+namaTabel2);
+            System.out.println(">> Cost : "+qep1);    
+            
+            System.out.print("PROJECTION ");
+            for (int i = 0; i < input.length; i++){
+                System.out.print(input[i]+",");
+            }
+            System.out.println("-- on the fly");
+            System.out.println("Join "+ namaTabel2+"."+keys+" = "+ namaTabel1 +"."+ keys + "-- BNLJ");
+            System.out.println(namaTabel2+"         "+namaTabel1);
+            System.out.println(">> Cost : "+qep2);    
+        
+            if(qep1 > qep2){
+               this.QEPjoin = "PROJECTION "+kolom+" -- on the fly%"+"Join "+namaTabel2+"."+keys+" = "+ namaTabel1 +"."+ keys + "-- BNLJ%"+namaTabel2+"   "+namaTabel1+"%Cost :"+qep2;
+            }else{
+               this.QEPjoin = "PROJECTION "+kolom+" -- on the fly%"+"Join "+namaTabel1+"."+keys+" = "+ namaTabel2 +"."+ keys + "-- BNLJ%"+namaTabel1+"   "+namaTabel2+"%Cost :"+qep1;
+            }
+            
+        }
+    }
+
+    public String getQEPjoin() {
+        return QEPjoin;
+    }
+        
     public void tampilQepNew(String kondisi, String[] input, String namaTabel, String algo1, String algo2, double biaya1, double biaya2){
             String kolom= "";
             System.out.println("PROJECTION ");
@@ -232,10 +289,10 @@ public class CSv {
    
             if(biaya1 <= biaya2){
                 System.out.println("QEP Optimal = "+algo1);
-                this.QEP = kolom+" -- on the fly%"+"SELECTION "+kondisi+" --"+algo1+"%"+namaTabel+"%>>Cost :"+biaya1;
+                this.QEP ="PROJECTION "+kolom+" -- on the fly%"+"SELECTION "+kondisi+" --"+algo1+"%"+namaTabel+"%>>Cost :"+biaya1;
             }else{
                 System.out.println("QEP Optimal = "+algo2);
-                this.QEP = kolom+" -- on the fly%"+"SELECTION "+kondisi+" --"+algo2+"%"+namaTabel+"%>>Cost :"+biaya2;
+                this.QEP ="PROJECTION "+kolom+" -- on the fly%"+"SELECTION "+kondisi+" --"+algo2+"%"+namaTabel+"%>>Cost :"+biaya2;
             }
             
 //            System.out.println(this.QEP);
@@ -270,21 +327,7 @@ public class CSv {
         
     }
     
-    public void tampilQepJoin(String[] input, String[] kolom1,String[] kolom2, String namaTabel1, String namaTabel2, double cost, String keys){
-        boolean cek=searchColumn(kolom1,input);
-        if(cek){
-            System.out.println("PROJECTION ");
-            boolean col = searchColumnJoin(input,kolom1,kolom2);
-            for (int i = 0; i < input.length; i++){
-                System.out.print(input[i]+",");
-            }
-            System.out.println("-- on the fly");
-            System.out.println("Join "+ namaTabel1+"."+keys+" = "+ namaTabel2 +"."+ keys + "-- BNLJ");
-            System.out.println(namaTabel1+"         "+namaTabel2);
-            System.out.println(">> Cost : "+cost);
-        }
-        
-    }
+    
     
     //kalo udah ketemu joinnya trus sesuai sama dengan data yang ada di csv dan input
     public void tampilJoin(String[] input, String[] csv,String[] tabJoin,String namaTabel){

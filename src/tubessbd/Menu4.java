@@ -87,7 +87,7 @@ public class Menu4 {
                                 }
                             }else if(select.length == 6){
                                 if(select[4].equals("Where")){
-                                    System.out.println("cek");
+//                                    System.out.println("cek");
                                         Cost cost  = new Cost();
                                         String[] tableName = select[3].split(";");
                                         double biaya1 = 0;
@@ -103,15 +103,17 @@ public class Menu4 {
 //                                                    System.out.println(qepBanding);
                                                     if(!sp.isDuplicate(qepBanding)){
                                                       sp.saveToSharedPool(this.query, qep);
-                                                    }else{
-                                                        System.out.println("Duplicate");
                                                     }
-//                                                    sp.ReadSharedPool();
-                                                
                                                 }else{
                                                   biaya1 = cost.costA1non(tab1.getN());
                                                   biaya2 = cost.costA3(Math.round(Customer.getVanaoutRatio()), tab1.getN());
                                                   anonymus.tampilQepNew(select[5], colName, tableName[0], cost.getAlgoA1(), cost.getAlgoA3(), biaya1, biaya2);
+                                                  String qep = anonymus.getQEP();
+                                                  String qepBanding = anonymus.qepBanding(qep);
+//                                                    System.out.println(qepBanding);
+                                                    if(!sp.isDuplicate(qepBanding)){
+                                                      sp.saveToSharedPool(this.query, qep);
+                                                    }
                                                 }
                                         }else if(tableName[0].equals(tab2.getNamaTabel())){
                                             anonymus.tampilData(colName, tab2.getTab(), tableName[0]);
@@ -119,10 +121,22 @@ public class Menu4 {
                                                     biaya1 = cost.costA1keys(tab2.getN());
                                                     biaya2 = cost.costA2(Math.round(Flight.getVanaoutRatio()), tab2.getN());
                                                     anonymus.tampilQepNew(select[5], colName, tableName[0], cost.getAlgoA1(), cost.getAlgoA2(), biaya1, biaya2);
+                                                    String qep = anonymus.getQEP();
+                                                    String qepBanding = anonymus.qepBanding(qep);
+//                                                    System.out.println(qepBanding);
+                                                    if(!sp.isDuplicate(qepBanding)){
+                                                      sp.saveToSharedPool(this.query, qep);
+                                                    }
                                             }else{
                                                     biaya1 = cost.costA1non(tab2.getN());
                                                     biaya2 = cost.costA3(Math.round(Flight.getVanaoutRatio()), tab2.getN());
                                                     anonymus.tampilQepNew(select[5], colName, tableName[0], cost.getAlgoA1(), cost.getAlgoA3(), biaya1, biaya2);
+                                                    String qep = anonymus.getQEP();
+                                                    String qepBanding = anonymus.qepBanding(qep);
+//                                                    System.out.println(qepBanding);
+                                                    if(!sp.isDuplicate(qepBanding)){
+                                                      sp.saveToSharedPool(this.query, qep);
+                                                    }
                                             }
                                         }else if(tableName[0].equals(tab3.getNamaTabel())){
                                             anonymus.tampilData(colName, tab3.getTab(), tableName[0]);
@@ -130,10 +144,22 @@ public class Menu4 {
                                                     biaya1 = cost.costA1keys(tab3.getN());
                                                     biaya2 = cost.costA2(Math.round(Booking.getVanaoutRatio()), tab3.getN());
                                                     anonymus.tampilQepNew(select[5], colName, tableName[0], cost.getAlgoA1(), cost.getAlgoA2(), biaya1, biaya2);
+                                                    String qep = anonymus.getQEP();
+                                                    String qepBanding = anonymus.qepBanding(qep);
+//                                                    System.out.println(qepBanding);
+                                                    if(!sp.isDuplicate(qepBanding)){
+                                                      sp.saveToSharedPool(this.query, qep);
+                                                    }
                                             }else{
                                                     biaya1 = cost.costA1non(tab3.getN());
                                                     biaya2 = cost.costA3(Math.round(Booking.getVanaoutRatio()), tab3.getN());
                                                     anonymus.tampilQepNew(select[5], colName, tableName[0], cost.getAlgoA1(), cost.getAlgoA2(), biaya1, biaya2);
+                                                    String qep = anonymus.getQEP();
+                                                    String qepBanding = anonymus.qepBanding(qep);
+//                                                    System.out.println(qepBanding);
+                                                    if(!sp.isDuplicate(qepBanding)){
+                                                      sp.saveToSharedPool(this.query, qep);
+                                                    }
                                             }
                                         }
                                 }
@@ -148,7 +174,7 @@ public class Menu4 {
                                                 String[] tabTmp = null;
                                                 String namaTmp = "";
                                                 String tableName = select[5];
-                                                
+                                                // ngecek nama join ada ga di csv
                                                 if(tableName.equals(tab1.getNamaTabel())){
                                                     joinName = tab1.getNamaTabel();
                                                     tabJoin = tab1.getTab();
@@ -192,13 +218,21 @@ public class Menu4 {
                                                         joinTab.tampilJoin(colName, tabTmp,tabJoin, namaTmp);
                                                         joinTab.tampilJoin(colName,tabJoin,tabTmp, joinName);
                                                         System.out.println("");
-                                                        joinTab.tampilQepJoin(colName, tabJoin, tabTmp, namaTmp, joinName,cost.BLNJblok(br, bs), "b");
-                                                        joinTab.tampilQepJoin(colName, tabJoin, tabTmp, joinName, namaTmp, cost.BLNJblok(bs, br), "b");
-                                                        if(qep1 >= qep2){
-                                                            System.out.println("Solusi Optimal QEP2");
-                                                        }else{
-                                                            System.out.println("Solusi Optimal QEP1");
+                                                        joinTab.tampilQepJoinNew(colName, tabJoin, tabTmp, joinName, namaTmp, br, bs, keys);
+                                                        String qep = joinTab.getQEPjoin();
+                                                        String qepBanding = joinTab.qepBanding(qep);
+                                                        System.out.println(qep);
+                                                        System.out.println(joinTab.qepBanding(joinTab.getQEPjoin()));
+                                                        if(!sp.isDuplicate(qepBanding)){
+                                                            sp.saveToSharedPool(this.query, qep);
                                                         }
+//                                                        joinTab.tampilQepJoin(colName, tabJoin, tabTmp, namaTmp, joinName,cost.BLNJblok(br, bs), "b");
+//                                                        joinTab.tampilQepJoin(colName, tabJoin, tabTmp, joinName, namaTmp, cost.BLNJblok(bs, br), "b");
+//                                                        if(qep1 >= qep2){
+//                                                            System.out.println("Solusi Optimal QEP2");
+//                                                        }else{
+//                                                            System.out.println("Solusi Optimal QEP1");
+//                                                        }
                                                     } 
                                                 }
                                             }else{
